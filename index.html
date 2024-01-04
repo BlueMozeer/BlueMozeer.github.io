@@ -8,17 +8,22 @@
 <body>
   <!-- 抽奖按钮 -->
   <div class="btn">
-    <img src="./assest/yuan/button.png" id="one_get">
+      <img src="./assest/yuan/button.png" id="one_get">
       <span class="btn-text_1">祈愿 x 1次</span>
-    </img>
-    <img src="./assest/yuan/button.png" id="ten_get">
+      <img src="./assest/yuan/button.png" id="ten_get">
       <span class="btn-text_10">祈愿 x 10次</span>     
-    </img>
   </div>
+
+<!-- 抽奖完成后 -->
+<img src="./assest/yuan/get.webp" id="get">
+<img src="./assest/yuan/get_bg.webp" id="bg_get">
+<div id="bg_get_bg"></div>
+<button class="closebox" ><i class="gi-close"></i></button>
 
 <!-- 抽奖背景 -->
 <video id="bg" width="100%" height="100%" style="z-index: -100;" src="./assest/yuan/bg.mp4"  autoplay loop>
 </video>
+
 <!-- 单抽一星 -->
 <video id="one_star" width="100%" height="100%" style="z-index: 100;">
   <source src="./assest/yuan/one_star-1.mp4" type="video/mp4">
@@ -41,10 +46,26 @@
 </video>
 
 <style lang="scss">
+@font-face {
+  font-family: 'YuanFont';
+  src: url('./assest/font/optimized_zh_web.woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'YuanIcon';
+  src: url('./assest/font/genshin-icon.woff');
+  font-weight: normal;
+  font-style: normal;
+}
+body{
+  font-family: YuanFont, sans-serif;
+}
   *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
   }
   .btn {
     position: fixed;
@@ -66,6 +87,8 @@
     top: 50%;
     /* left: 50%; */
     transform: translate(-50%, -50%);
+    user-select: none;
+    pointer-events: none;
   }
   .btn-text_1{
     left: 25%;
@@ -86,6 +109,74 @@
     display: none;
     object-fit: fill;
   }
+@keyframes fade-in {
+  from { opacity: 0; filter: brightness(0); }
+  to { opacity: 1; filter: brightness(1); }
+}
+#get{
+  position:fixed;
+  z-index: 4;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: 80%;
+  display: none;
+  animation: fade-in 3s ease-in-out;
+}
+#bg_get_bg{
+  position:fixed;
+  background-color:#fff;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: none;
+}
+#bg_get{
+    position:fixed;
+    top: 0;
+    left: 0;
+    object-fit: fill;
+    display: none;
+    z-index: 3;
+    animation: fade-in 2s ease-in-out;
+  }
+.closebox{
+    position: fixed;
+    top: 30px;
+    right: 2%;
+    z-index: 10;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 3px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    color: #000000b3;
+    background-color: #e0ddd4;
+    border: 3.5px solid #abbcc6;
+    padding: 0;
+    line-height: 0;
+    overflow: hidden;
+    border-radius: 50px;
+    transition: all .2s;
+    display: none;
+  }
+  /* 关闭按钮 */
+.gi-close:before {
+    content: '\6b';
+}
+[class^='gi-']:before, [class*=' gi-']:before {
+    font-family: 'YuanIcon' !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 </style>
 
 <script>
@@ -98,17 +189,33 @@ var two_star = document.getElementById("two_star");
 var two_star_10 = document.getElementById("two_star_10");
 var three_star = document.getElementById("three_star");
 var three_star_10 = document.getElementById("three_star_10");
-
+// 抽中结果
 var whatstar = three_star;
 var whatstar_10 = three_star_10;
+// 抽奖完成后
+var get = document.getElementById("get");
+var bg_get = document.getElementById("bg_get");
+var bg_get_bg = document.getElementById("bg_get_bg");
+var closebox = document.getElementsByClassName("closebox")[0];
+
+closebox.addEventListener("click", function() {
+  closebox.style.display = "none";
+  get.style.display = "none";
+  bg_get.style.display = "none";
+  bg_get_bg.style.display = "none";
+});
 
 one_Chou.addEventListener("click", function() {
   whatstar.style.display = "block";
   whatstar.play();
     // 隐藏播放器
   whatstar.onended = function() {
+      closebox.style.display = "block";
       whatstar.style.display = 'none';
-};
+      get.style.display = "block";
+      bg_get_bg.style.display = 'block';
+      bg_get.style.display = "block";
+    };
 });
 
 ten_Chou.addEventListener("click", function() {
