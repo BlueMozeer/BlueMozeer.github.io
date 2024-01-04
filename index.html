@@ -7,9 +7,13 @@
 </head>
 <body>
   <!-- 抽奖按钮 -->
-  <div id="btn">
-    <button id="one_get">单抽</button>
-    <button id="ten_get">十连</button>
+  <div class="btn">
+    <img src="./assest/yuan/button.png" id="one_get">
+      <span class="btn-text_1">祈愿 x 1次</span>
+    </img>
+    <img src="./assest/yuan/button.png" id="ten_get">
+      <span class="btn-text_10">祈愿 x 10次</span>     
+    </img>
   </div>
 
 <!-- 抽奖背景 -->
@@ -35,18 +39,39 @@
 <video id="three_star_10" width="100%" height="100%" style="z-index: 100;">
   <source src="./assest/yuan/three_star-10.mp4" type="video/mp4">
 </video>
-<style>
+
+<style lang="scss">
   *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-  #btn {
+  .btn {
     position: fixed;
     bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    left: 70%;
+  }
+  #one_get,#ten_get{
+      position: relative;
+    }
+  .btn-text_1,.btn-text_10{
+    color:#a49a90;
+    position: absolute;
+    top: 50%;
+    /* left: 50%; */
+    transform: translate(-50%, -50%);
+  }
+  .btn-text_1{
+    left: 25%;
+  }
+  .btn-text_10{
+    left: 75%;
   }
   #bg{
     position:fixed;
@@ -74,12 +99,24 @@ var two_star_10 = document.getElementById("two_star_10");
 var three_star = document.getElementById("three_star");
 var three_star_10 = document.getElementById("three_star_10");
 
+var whatstar = three_star;
+var whatstar_10 = three_star_10;
+
 one_Chou.addEventListener("click", function() {
-  one_star.style.display = "block";
-  one_star.play();
+  whatstar.style.display = "block";
+  whatstar.play();
     // 隐藏播放器
-  one_star.onended = function() {
-      one_star.style.display = 'none';
+  whatstar.onended = function() {
+      whatstar.style.display = 'none';
+};
+});
+
+ten_Chou.addEventListener("click", function() {
+  whatstar_10.style.display = "block";
+  whatstar_10.play();
+    // 隐藏播放器
+  whatstar_10.onended = function() {
+      whatstar_10.style.display = 'none';
 };
 });
 
