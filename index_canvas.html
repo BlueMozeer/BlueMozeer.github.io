@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>转盘</title>
+</head>
+<!-- <body background="https://s11.ax1x.com/2024/01/03/pijjbK1.png" style="background-repeat: no-repeat;background-size:cover;"> -->
+<body>
+    <div class="container">
+        <div id="my-lucky"></div>
+    </div>
+    <script src="./index.umd.js"></script>
+    <script>
+      // 获取页面高度
+      const pageHeight = window.innerHeight || document.documentElement.clientHeight;
+      // 计算页面高度的80%
+      const luckyheight = 0.7 * pageHeight;
+      let lucky;
+        const myLucky = new LuckyCanvas.LuckyWheel('#my-lucky', {
+            width:luckyheight,
+            height: luckyheight,
+            blocks: [{ padding: '10px', background: 'rgba(255,255,255,1 )' }],
+            prizes: [
+                { fonts: [{ text: '点歌券\n🎧 ', top: '20%' ,wordWrap:false }], background: 'rgba(255,215,0,0.85)'},// 0
+                { fonts: [{ text: '贴纸x2\n🧻', top: '20%' ,wordWrap:false}], background:'rgba(255,215,0,0.7)'},// 1
+                { fonts: [{ text: '免罚抄券\n📝', top: '20%'  ,wordWrap:false}], background: 'rgba(255,215,0,0.65)'},// 2
+                { fonts: [{ text: '免惩罚券\n😈', top: '20%'  ,wordWrap:false}], background: 'rgba(255,215,0,0.55)'},// 3
+                { fonts: [{ text: '免写作业券\n🎮', top: '20%'  ,wordWrap:false}], background: 'rgba(255,215,0,0.45)'},// 4
+                { fonts: [{ text: '代替券\n🥂', top: '20%'  ,wordWrap:false}], background: 'rgba(255,215,0,0.35)'},// 5
+                { fonts: [{ text: '抽背券\n🧠', top: '20%'  ,wordWrap:false}], background: 'rgba(255,215,0,0.25)'},// 6
+                { fonts: [{ text: '便利贴\n📌', top: '20%'  ,wordWrap:false}], background: 'rgba(255,215,0,0.2)'},// 7
+                { fonts: [{ text: '电影券\n🎬', top: '20%'  ,wordWrap:false}], background: 'rgba(255,215,0,0.15)'},// 8
+                { fonts: [{ text: '小红花x5\n🌸', top: '20%'  ,wordWrap:false}], background: 'rgba(255,215,0,0.1)'},//9
+                { fonts: [{ text: '免暑假作业\n🎇', top: '20%'  ,wordWrap:false}], background: 'rgba(255,215,0,1)'},//10
+                ],
+            buttons: [{
+                radius: '13%',
+                // background: 'https://s11.ax1x.com/2024/01/03/pivExmD.png',
+                pointer: true,
+                // fonts: [{ text: '', top: '-10px' }],
+			    imgs:[{ src:'https://s11.ax1x.com/2024/01/03/pivVk1P.png',top:'-45px',height:'120px' }],
+                
+            }],
+            defaultStyle:{
+                fontWeight:800,
+            },
+            defaultConfig:{
+                stopRange: 0.95,
+                gutter: 0,
+                accelerationTime:1000,
+                decelerationTime: 5000,
+                speed:20,
+            },
+            start: function () {
+            let randomNumber = 0
+            let random = Math.random()
+            // let random = 0.3
+            if (random >= 0 && random <0.1) {
+                this.randomNumber = 0 //点歌券
+              } else if (random >= 0.1 && random < 0.22) {
+                this.randomNumber = 1 // 贴纸x2
+              }else if (random >= 0.22 && random < 0.34) {
+                this.randomNumber = 2 //免罚抄券
+              }else if (random >= 0.34 && random < 0.46) {
+                this.randomNumber = 3 //免惩罚券
+              }else if (random >= 0.46 && random < 0.58) {
+                this.randomNumber = 4 //免写作业券
+              }else if (random >= 0.58 && random < 0.7) {
+                this.randomNumber = 5 //代替券
+              }else if (random >= 0.7 && random < 0.82) {
+                this.randomNumber = 6 //抽背券
+              }else if (random >= 0.82 && random < 0.92) {
+                this.randomNumber = 7 //便利贴
+              }else if (random >= 0.92 && random < 0.97) {
+                this.randomNumber = 8 //电影券
+              }else if (random >= 0.97 && random < 1) {
+                this.randomNumber = 9 //小红花x5
+              }
+          const index = this.randomNumber
+          console.log('index',index);
+          console.log('random',random)
+            // 开始游戏
+        myLucky.play()
+            // 使用定时器模拟接口
+            setTimeout(() => {
+                const index = this.randomNumber
+                lucky = this.prizes[index].fonts[0].text;
+                console.log('抽中：' + this.prizes[index].fonts[0].text);
+                // 结束游戏
+                myLucky.stop(index)
+            }, 100)
+            },
+            end:function(prize){
+              console.log(lucky);
+              alert('恭喜抽中：'+lucky.replace(/\n/g, ''))
+            },
+        });
+
+    </script>
+  <style scoped lang="scss">
+    *{
+        user-select: none;
+        margin: 0;
+        padding: 0;
+    }
+    .container{
+        text-decoration: none;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        -moz-user-select: -moz-none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background:url(./assest/pic/canvas_background.png) ;
+        background-repeat: no-repeat;background-size:cover;
+    }
+  </style>
+</body>
+</html>
