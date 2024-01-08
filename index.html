@@ -18,7 +18,22 @@
 <img src="./assest/yuan/get.webp" id="get">
 <img src="./assest/yuan/get_bg.webp" id="bg_get">
 <div id="bg_get_bg"></div>
+<span id="getprize">{{ prize }}</span>
 <button class="closebox" ><i class="gi-close"></i></button>
+<!-- 十连奖品 -->
+<div id="prize_list">
+  <div id="prize_1" class="prize_all">{{prize_1}}</div>
+  <!-- <div id="prize_1">江平名单呀</div> -->
+  <div id="prize_2" class="prize_all">{{prize_2}}</div>
+  <div id="prize_3" class="prize_all">{{prize_3}}</div>
+  <div id="prize_4" class="prize_all">{{prize_4}}</div>
+  <div id="prize_5" class="prize_all">{{prize_5}}</div>
+  <div id="prize_6" class="prize_all">{{prize_6}}</div>
+  <div id="prize_7" class="prize_all">{{prize_7}}</div>
+  <div id="prize_8" class="prize_all">{{prize_8}}</div>
+  <div id="prize_9" class="prize_all">{{prize_9}}</div>
+  <div id="prize_10" class="prize_all">{{prize_10}}</div>
+</div>
 
 <!-- 抽奖背景 -->
 <video id="bg" width="100%" height="100%" style="z-index: -100;" src="./assest/yuan/bg.mp4"  autoplay loop>
@@ -45,7 +60,7 @@
   <source src="./assest/yuan/three_star-10.mp4" type="video/mp4">
 </video>
 
-<style lang="scss">
+<style>
 @font-face {
   font-family: 'YuanFont';
   src: url('./assest/font/optimized_zh_web.woff2');
@@ -58,8 +73,15 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'PrizeFont';
+  src: url('./assest/font/prize.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
 body{
   font-family: YuanFont, sans-serif;
+  user-select: none;
 }
   *{
     margin: 0;
@@ -143,6 +165,55 @@ body{
     z-index: 3;
     animation: fade-in 2s ease-in-out;
   }
+  #getprize{
+    color: rgb(0, 0, 0);
+    z-index: 100;
+    /* width: 100px; */
+    /* height: 100px; */
+    /* background-color: yellow; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    animation: fade-in 2s ease-in-out;
+    display: none;
+    white-space: nowrap; /* 确保文字不会自动换行 */
+    font-family: PrizeFont;
+    font-size: 70px;
+    text-align: center;
+  }
+  #prize_list{
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 100;
+    width: 90%;
+    height: 60%;
+    /* background-color: yellowgreen; */
+    animation: fade-in 2s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    display: none;
+  }
+    #prize_list div{
+    border-radius: 10%;
+    border: #fff 2px solid;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    width: 100px;
+    height: 100%;
+    /* margin-left:20px ; */
+    writing-mode: vertical-rl;
+    letter-spacing: 20px;
+    background-color: rgba(0,0,0,0.5);
+    font-family: PrizeFont;
+    font-size: 50px;
+    color: white;
+    opacity: 0;  
+    transition: opacity 5s ease-in-out;
+    }
 .closebox{
     position: fixed;
     top: 30px;
@@ -164,6 +235,7 @@ body{
     border-radius: 50px;
     transition: all .2s;
     display: none;
+    animation: fade-in 2s ease-in-out;
   }
   /* 关闭按钮 */
 .gi-close:before {
@@ -194,6 +266,7 @@ var three_star_10 = document.getElementById("three_star_10");
 // 抽中结果
 var whatstar = three_star;
 var whatstar_10 = three_star_10;
+var  getprize = document.getElementById("getprize")
 // 抽奖完成后
 var get = document.getElementById("get");
 var bg_get = document.getElementById("bg_get");
@@ -205,9 +278,59 @@ closebox.addEventListener("click", function() {
   get.style.display = "none";
   bg_get.style.display = "none";
   bg_get_bg.style.display = "none";
+  getprize.style.display = "none";
+  prize = "";
+  prize_list.style.display = "none";
+  ten_prize = [];
 });
 
 one_Chou.addEventListener("click", function() {
+//抽奖随机数获取
+var prize = ''
+var randomNumber = 0
+var random = Math.random()
+if (random >= 0 && random <0.1) {
+      this.randomNumber = 0 //
+      whatstar = one_star;
+      prize = "点歌券";
+    } else if (random >= 0.1 && random < 0.22) {
+      this.randomNumber = 1 // 贴纸x2
+      whatstar = two_star;
+      prize = "贴纸x2";
+    }else if (random >= 0.22 && random < 0.34) {
+      this.randomNumber = 2 //免罚抄券
+      whatstar = two_star;
+      prize = "免罚抄券";
+    }else if (random >= 0.34 && random < 0.46) {
+      this.randomNumber = 3 //免惩罚券
+      whatstar = one_star;
+      prize = "点歌券";
+    }else if (random >= 0.46 && random < 0.58) {
+      this.randomNumber = 4 //免写作业券
+      whatstar = one_star;
+      prize = "免写作业券";
+    }else if (random >= 0.58 && random < 0.7) {
+      this.randomNumber = 5 //代替券
+      whatstar = two_star;
+      prize = "代替券";
+    }else if (random >= 0.7 && random < 0.82) {
+      this.randomNumber = 6 //抽背券
+      whatstar = two_star;
+      prize = "抽背券";
+    }else if (random >= 0.82 && random < 0.92) {
+      this.randomNumber = 7 //便利贴
+      whatstar = two_star;
+      prize = "便利贴";
+    }else if (random >= 0.92 && random < 0.97) {
+      this.randomNumber = 8 //电影券
+      whatstar = three_star;
+      prize = "电影券";
+    }else if (random >= 0.97 && random < 1) {
+      this.randomNumber = 9 //小红花x5
+      whatstar = three_star;
+      prize = "小红花x5";
+  }
+
   whatstar.style.display = "block";
   whatstar.play();
     // 隐藏播放器
@@ -217,20 +340,115 @@ one_Chou.addEventListener("click", function() {
       get.style.display = "block";
       bg_get_bg.style.display = 'block';
       bg_get.style.display = "block";
+      getprize.style.display = "inline-block";
+      document.querySelector('#getprize').innerText = prize; // 将抽中的奖品显示在HTML中
     };
 });
 
+
 ten_Chou.addEventListener("click", function() {
+  //抽奖随机数获取
+var ten_prize = []
+var randomNumber = 0
+for(i = 0; i < 10; i++){
+  var random = Math.random()
+  if (random >= 0 && random <0.1) {
+      this.randomNumber = 0 //
+      whatstar = one_star;
+      ten_prize.push("点歌券");
+    } else if (random >= 0.1 && random < 0.22) {
+      this.randomNumber = 1 // 贴纸x2
+      whatstar = two_star;
+      ten_prize.push("贴纸x2");
+    }else if (random >= 0.22 && random < 0.34) {
+      this.randomNumber = 2 //免罚抄券
+      whatstar = two_star;
+      ten_prize.push("免罚抄券");
+    }else if (random >= 0.34 && random < 0.46) {
+      this.randomNumber = 3 //免惩罚券
+      whatstar = one_star;
+      ten_prize.push("免惩罚券");
+    }else if (random >= 0.46 && random < 0.58) {
+      this.randomNumber = 4 //免写作业券
+      whatstar = one_star;
+      ten_prize.push("免写作业券");
+    }else if (random >= 0.58 && random < 0.7) {
+      this.randomNumber = 5 //代替券
+      whatstar = two_star;
+      ten_prize.push("代替券");
+    }else if (random >= 0.7 && random < 0.82) {
+      this.randomNumber = 6 //抽背券
+      whatstar = two_star;
+      ten_prize.push("抽背券");
+    }else if (random >= 0.82 && random < 0.92) {
+      this.randomNumber = 7 //便利贴
+      whatstar = two_star;
+      ten_prize.push("便利贴");
+    }else if (random >= 0.92 && random < 0.97) {
+      this.randomNumber = 8 //电影券
+      whatstar = three_star;
+      ten_prize.push("电影券");
+    }else if (random >= 0.97 && random < 1) {
+      this.randomNumber = 9 //小红花x5
+      whatstar = three_star;
+      ten_prize.push("小红花x5");
+  }
+}
+console.log(ten_prize);
+var prize_1 = ''
+var prize_2 = ''
+var prize_3 = ''
+var prize_4 = ''
+var  prize_5 = '' 
+var prize_6 = ''
+var prize_7 = ''
+var prize_8 = ''
+var prize_9 = ''
+var prize_10 = ''
+  prize_1 = ten_prize[0] ;
+  prize_2 = ten_prize[1] ;
+  prize_3 = ten_prize[2] ;
+  prize_4 = ten_prize[3] ;
+  prize_5 = ten_prize[4] ;
+  prize_6 = ten_prize[5] ;
+  prize_7 = ten_prize[6] ;
+  prize_8 = ten_prize[7] ;
+  prize_9 = ten_prize[8] ;
+  prize_10 = ten_prize[9] ;
+  document.querySelector('#prize_1').innerText = prize_1; // 将抽中的奖品显示在HTML中
+  document.querySelector('#prize_2').innerText = prize_2; // 将抽中的奖品显示在HTML中
+  document.querySelector('#prize_3').innerText = prize_3; // 将抽中的奖品显示在HTML中
+  document.querySelector('#prize_4').innerText = prize_4; // 将抽中的奖品显示在HTML中
+  document.querySelector('#prize_5').innerText = prize_5; // 将抽中的奖品显示在HTML中
+  document.querySelector('#prize_6').innerText = prize_6; // 将抽中的奖品显示在HTML中
+  document.querySelector('#prize_7').innerText = prize_7; // 将抽中的奖品显示在HTML中
+  document.querySelector('#prize_8').innerText = prize_8; // 将抽中的奖品显示在HTML中
+  document.querySelector('#prize_9').innerText = prize_9; // 将抽中的奖品显示在HTML中
+  document.querySelector('#prize_10').innerText = prize_10; // 将抽中的奖品显示在HTML中
   whatstar_10.style.display = "block";
   whatstar_10.play();
     // 隐藏播放器
   whatstar_10.onended = function() {
-    closebox.style.display = "block";
+      closebox.style.display = "block";
       whatstar_10.style.display = 'none';
-      get.style.display = "block";
+      // get.style.display = "block";
       bg_get_bg.style.display = 'block';
       bg_get.style.display = "block";
-};
+      prize_list.style.display = "flex";
+      var smallBoxes = document.getElementsByClassName('prize_all');  
+      var totalWidth = 0; // 用于计算小盒子的总宽度  
+      for (var i = 0; i < smallBoxes.length; i++) {  
+          var box = smallBoxes[i];  
+          box.style.opacity = 1; // 设置初始透明度为1（即完全可见）  
+          totalWidth += box.offsetWidth; // 累加小盒子的宽度  
+        }  
+       // 移动所有小盒子到父盒子的右边，实现从左到右渐隐出现的效果  
+      for (var i = 0; i < smallBoxes.length; i++) {  
+        var box = smallBoxes[i];  
+        box.style.left = (totalWidth - box.offsetWidth) + 'px'; // 初始位置设置在父盒子的右边  
+        totalWidth -= box.offsetWidth; // 减去已移动的小盒子的宽度，以便计算下一个小盒子的位置  
+       }
+       };
 });
 
 
