@@ -354,47 +354,47 @@ for(i = 0; i < 10; i++){
   var random = Math.random()
   if (random >= 0 && random <0.1) {
       this.randomNumber = 0 //
-      whatstar = one_star;
+      whatstar = two_star_10;
       ten_prize.push("点歌券");
     } else if (random >= 0.1 && random < 0.22) {
       this.randomNumber = 1 // 贴纸x2
-      whatstar = two_star;
+      whatstar = two_star_10;
       ten_prize.push("贴纸x2");
     }else if (random >= 0.22 && random < 0.34) {
       this.randomNumber = 2 //免罚抄券
-      whatstar = two_star;
+      whatstar = two_star_10;
       ten_prize.push("免罚抄券");
     }else if (random >= 0.34 && random < 0.46) {
       this.randomNumber = 3 //免惩罚券
-      whatstar = one_star;
+      whatstar = two_star_10;
       ten_prize.push("免惩罚券");
     }else if (random >= 0.46 && random < 0.58) {
       this.randomNumber = 4 //免写作业券
-      whatstar = one_star;
+      whatstar = two_star_10;
       ten_prize.push("免写作业券");
     }else if (random >= 0.58 && random < 0.7) {
       this.randomNumber = 5 //代替券
-      whatstar = two_star;
+      whatstar = two_star_10;
       ten_prize.push("代替券");
     }else if (random >= 0.7 && random < 0.82) {
       this.randomNumber = 6 //抽背券
-      whatstar = two_star;
+      whatstar = two_star_10;
       ten_prize.push("抽背券");
     }else if (random >= 0.82 && random < 0.92) {
       this.randomNumber = 7 //便利贴
-      whatstar = two_star;
+      whatstar = two_star_10;
       ten_prize.push("便利贴");
     }else if (random >= 0.92 && random < 0.97) {
       this.randomNumber = 8 //电影券
-      whatstar = three_star;
+      whatstar = three_star_10;
       ten_prize.push("电影券");
     }else if (random >= 0.97 && random < 1) {
       this.randomNumber = 9 //小红花x5
-      whatstar = three_star;
+      whatstar = three_star_10;
       ten_prize.push("小红花x5");
   }
 }
-console.log(ten_prize);
+console.log(ten_prize,whatstar);
 var prize_1 = ''
 var prize_2 = ''
 var prize_3 = ''
